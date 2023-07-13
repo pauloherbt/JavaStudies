@@ -1,0 +1,8 @@
+Person1 10
+Person2 12
+Person3 9
+Person4 8
+Person5 7
+Person6 15
+Person7 11
+Person8 30

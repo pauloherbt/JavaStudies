@@ -8,8 +8,11 @@ public class Product implements Comparable<Product> {
         this.name = name;
         this.price = price;
     }
-
-    public String getName() {
+    private void doing(){
+        System.out.println("doung");
+    }
+    public final String getName() {
+        doing();
         return name;
     }
     public double getPrice() {
@@ -18,10 +21,10 @@ public class Product implements Comparable<Product> {
 
     @Override
     public String toString() {
-        return name+", R$:"+price;
+        return name+" R$:"+price;
     }
     @Override
     public int compareTo(Product obj) {
-        return -Double.compare(getPrice(),obj.getPrice());
+        return Double.compare(price, obj.getPrice());
     }
 }

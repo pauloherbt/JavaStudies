@@ -1,4 +1,4 @@
-package javaprogrammerlearner.exercises.prewrittencode.Iex;
+package javaprogrammerlearner.exercises.prewrittencode.InterfaceEx;
 
 public interface Item {
     double getPrice();

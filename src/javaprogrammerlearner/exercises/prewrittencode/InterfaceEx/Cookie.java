@@ -1,4 +1,4 @@
-package javaprogrammerlearner.exercises.prewrittencode.Iex;
+package javaprogrammerlearner.exercises.prewrittencode.InterfaceEx;
 
 public class Cookie implements Item{
     private String name;
@@ -33,5 +33,7 @@ public class Cookie implements Item{
     public static void main(String[] args) {
         Cookie cokk = new Cookie("cookie","bakery");
         System.out.println(cokk.getName()+cokk.getDepartment());
+        
+
     }
 }

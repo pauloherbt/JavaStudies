@@ -1,5 +1,8 @@
 package exercises.genericsTest.main;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -7,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws SQLException {
         //exercises.genericsTest.main.Arrays a1 = new Arrays();
         ArrayList<Product> a=new ArrayList<>();
         a.add(new Arroz("queijo",100));
@@ -20,8 +23,6 @@ public class Main {
         /*Arroz arroz = new Arroz("arroiz",100);
         arroz.getName();
         System.out.println(a);*/
-
-
     }
 
 

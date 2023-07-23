@@ -22,14 +22,17 @@ public class SellerDao implements ISellerDao {
         String query="insert into seller (Name,Email,BirthDate,BaseSalary,DepartmentId) values (?,?,?,?,?) ";
         PreparedStatement statement=null;
         try{
-            statement=connection.prepareStatement(query);
-            statement.setString(1,obj.getName());
-            statement.setString(2,obj.getEmail());
-            statement.setDate(3,obj.getBirthdayDate());
-            statement.setDouble(4,obj.getBaseSalary());
-            statement.setInt(5,obj.getDepartment().getId());
-            statement.executeUpdate();
-
+            statement=connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            povoateStatement(statement,obj);
+            int rowsA= statement.executeUpdate();
+            if(rowsA>0){ //significa q a inserçao ocorreu
+                ResultSet rs= statement.getGeneratedKeys(); //pego o resultset que foi add & atribui o id corretamente
+                if(rs.next()) //smp verificar se o rs esta vazio
+                    obj.setId(rs.getInt(1));
+                DB.closeResultSet(rs);
+            }else {
+                throw new DbException("insertion failed");
+            }
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
@@ -40,12 +43,32 @@ public class SellerDao implements ISellerDao {
 
     @Override
     public void update(Seller obj) {
-
+        PreparedStatement st=null;
+        try{
+            st= connection.prepareStatement("update seller set  Name=?, Email=?,BirthDate=?,BaseSalary=?,DepartmentId=? where Id=?");
+            povoateStatement(st,obj);
+            st.setInt(6,obj.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
     public void deleteById(int id) {
-
+        PreparedStatement st=null;
+        try{
+            st= connection.prepareStatement("delete from seller where Id=?");
+            st.setInt(1,id);
+            st.executeUpdate();
+        }catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
@@ -144,6 +167,12 @@ public class SellerDao implements ISellerDao {
     private Department instantiateDepartment(ResultSet rs) throws SQLException {
         return new Department(rs.getInt("DepartmentId"),rs.getString("Dep_name"));
     }
-
+    private void povoateStatement(PreparedStatement statement, Seller obj)throws SQLException {
+        statement.setString(1,obj.getName());
+        statement.setString(2,obj.getEmail());
+        statement.setDate(3,obj.getBirthdayDate());
+        statement.setDouble(4,obj.getBaseSalary());
+        statement.setInt(5,obj.getDepartment().getId());
+    }
 
 }

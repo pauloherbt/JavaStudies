@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
-public class Seller implements Serializable {
+public class Seller implements Serializable{
     private int id;
     private String name;
     private String email;
@@ -87,6 +87,7 @@ public class Seller implements Serializable {
         return "Seller{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                '}';
+                department+'}';
     }
+
 }

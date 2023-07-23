@@ -26,7 +26,7 @@ public class DB {
 
     public static void closeStatement(Statement st){
         try{
-            if(!st.isClosed()){
+            if(st!=null){
                 st.close();
             }
         }catch (SQLException e){
@@ -35,7 +35,7 @@ public class DB {
     }
     public static void closeResultSet(ResultSet rs){
         try{
-           if(!rs.isClosed()){
+           if(rs!=null){
                rs.close();
            }
         }catch (SQLException e){

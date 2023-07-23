@@ -31,7 +31,7 @@ public class Department implements Serializable {
     @Override
     public String toString() {
         return "Department: "+name  +
-                " id=" + id+"\n";
+                " id=" + id+" memory:"+ super.toString()+ "\n";
     }
 
     @Override

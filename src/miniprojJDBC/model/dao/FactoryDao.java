@@ -1,6 +1,6 @@
 package miniprojJDBC.model.dao;
 
-import exercises.DataBasee.db.DB;
+import javacompleto.DataBasee.db.DB;
 import miniprojJDBC.model.dao.impl.DepartmentDao;
 import miniprojJDBC.model.dao.impl.SellerDao;
 

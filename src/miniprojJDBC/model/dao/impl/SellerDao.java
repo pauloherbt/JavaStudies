@@ -1,7 +1,7 @@
 package miniprojJDBC.model.dao.impl;
 
-import exercises.DataBasee.db.DB;
-import exercises.DataBasee.db.DbException;
+import javacompleto.DataBasee.db.DB;
+import javacompleto.DataBasee.db.DbException;
 import miniprojJDBC.model.dao.ISellerDao;
 import miniprojJDBC.model.entities.Department;
 import miniprojJDBC.model.entities.Seller;

@@ -52,9 +52,6 @@ public class User {
         return additionalAnswer;
     }
 
-    public void setadditionalAnswer(List<String> additionalAnswer) {
-        this.additionalAnswer = additionalAnswer;
-    }
 
     @Override
     public String toString() {

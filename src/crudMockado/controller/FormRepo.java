@@ -5,22 +5,18 @@ import crudMockado.model.entities.Form;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class FormInput {
-    private File file;
-    private BufferedReader bf;
+public class FormRepo {
+    private final File file;
     private Form form;
 
-    public FormInput() {
+    public FormRepo() {
         file = new File("src/crudMockado/in_out/formulario.txt");
-        form = new Form();
-        readFile();
     }
-    public void createQuestion(){
-        StringBuilder sb = new StringBuilder().append(new Scanner(System.in).nextLine()); //calcula automaticamente qual numero da pergunta
+    public void createQuestion(String question){
+        StringBuilder sb = new StringBuilder().append(question);
         form.getQuestions().add(sb.toString());
-        createForm();
+        createForm();//calcula automaticamente qual numero da pergunta
 
     }
     public void deleteQuestion(int questionIndex){
@@ -28,41 +24,38 @@ public class FormInput {
             form.getQuestions().remove(questionIndex);
             createForm();
         }
-        else
-            System.out.println("Type a valid option");
-
+    }
+    public String showForm(){
+        StringBuilder sb = new StringBuilder("Formulário:\n");
+        for (String question : form.getQuestions()) {
+            sb.append(question).append("\n");
+        }
+        return sb.toString();
     }
     public void createForm(){
-
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(file))){
-            int coount=1;
+            int count=1;
             for (String question : form.getQuestions()) {
-                bf.write(coount++ +" - "+question+"\n");
+                bf.write(count++ +" - "+question+"\n");
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println((e.getMessage()));
         }
     }
-    public void readFile() {
+    public void initializeForm() {
         List<String> questions = new ArrayList<>();
         try {
-            bf = new BufferedReader(new FileReader(file));
+            BufferedReader bf = new BufferedReader(new FileReader(file));
             while(bf.ready()) {
                 String line = bf.readLine();
-                questions.add(line.substring(4));
+                questions.add(line.substring(4)); //pula os 4 caracter inicial
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         form.setQuestions(questions);
     }
-
-    public Form getForm() {
-        return form;
-    }
-
-    public static void main(String[] args) {
-        FormInput formInput = new FormInput();
-        System.out.println(formInput.getForm().getQuestions());
+    public void setForm(Form form) {
+        this.form = form;
     }
 }

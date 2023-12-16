@@ -7,30 +7,31 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
-public class UserInput {
+public class UserRepo {
     private User user;
-    private Form form;
-    private static int count;
-
-    public UserInput() {
-
-    }
-   public void createUser(){
-        Scanner sc = new Scanner(System.in);
-        List<String> answers = new ArrayList<>();
-        int counter =1;
-       for (String question : form.getQuestions()) {
-           System.out.println(counter++ + " - " + question);
-           answers.add(sc.nextLine());
-       }
+   public User createUser(List<String> answers){
        List<String> addAnswers = answers.subList(4,answers.size()); //para evitar um if-else so peguei a sublist apartir da 5 pergunta indice 4
         user = new User(answers.getFirst(), answers.get(1)
                 ,Integer.parseInt(answers.get(2)),Double.parseDouble(answers.get(3)),addAnswers);
-        count++;
-        saveUserInFile();
-        System.out.println(user);
+        createUserInFile();
+        return user;
+    }
+    private void createUserInFile(){
+        String path = "src/crudMockado/in_out/users";
+        new File(path).mkdir();
+        File[] files = new File(path).listFiles();
+        int indexOfNextFile =files.length+1;
+        path +="/"+ indexOfNextFile+"-"+user.getName().replaceAll("\\s", "").toUpperCase()+".txt";
+        File out = new File(path);
+        try {
+            out.createNewFile();
+            BufferedWriter bw = new BufferedWriter(new FileWriter(out));
+            bw.write(fillUserInfo().toString());
+            bw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     public List<User> listAllUsers(){
         String dirPath = "src/crudMockado/in_out/users";
@@ -39,10 +40,9 @@ public class UserInput {
         for (File file : files) {
             userList.add(readFileAndGetUser(file));
         }
-        //userList.sort((a,b)-> a.getName().compareToIgnoreCase(b.getName()));
         return userList;
     }
-    private User readFileAndGetUser(File file){
+    private User readFileAndGetUser(File file){ //le um arquivo por vez e converte em um User
         List<String>values = new ArrayList<>();
         try{
             BufferedReader bf = new BufferedReader(new FileReader(file));
@@ -66,9 +66,6 @@ public class UserInput {
             }
         }
     }
-    public void setForm(Form form) {
-        this.form = form;
-    }
     private void updateUserInFile(String path) {
         File file = new File(path);
         try(BufferedWriter bf = new BufferedWriter(new FileWriter(file))) {
@@ -86,20 +83,15 @@ public class UserInput {
         }
         return sb;
     }
-    private void saveUserInFile(){
-        String path = "src/crudMockado/in_out/users";
-        new File(path).mkdir();
-        File[] files = new File(path).listFiles();
-        int indexOfNextFile =files.length+1;
-        path +="/"+ indexOfNextFile+"-"+user.getName().replaceAll("\\s", "").toUpperCase()+".txt";
-        File out = new File(path);
-        try {
-            out.createNewFile();
-            BufferedWriter bw = new BufferedWriter(new FileWriter(out));
-            bw.write(fillUserInfo().toString());
-            bw.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public void setForm(Form form) {
+    }
+
+    public List<User> listAllUsersByName(String name) {
+        List<User> userList = new ArrayList<>();
+        for (User user : listAllUsers()) {
+            if (user.getName().toLowerCase().startsWith(name.toLowerCase()))
+                    userList.add(user);
         }
+        return userList;
     }
 }

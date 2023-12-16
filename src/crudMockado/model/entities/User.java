@@ -1,15 +1,19 @@
 package crudMockado.model.entities;
 
+import java.util.List;
+
 public class User {
     private String name;
     private String email;
     private int age;
     private double height;
-    public User(String name, String email, int age, double height) {
+    private List<String> additionalAnswer;
+    public User(String name, String email, int age, double height,List<String> additionalAnswer) {
         this.name = name;
         this.email = email;
         this.age = age;
         this.height = height;
+        this.additionalAnswer = additionalAnswer;
     }
 
     public String getName() {
@@ -42,6 +46,14 @@ public class User {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public List<String> getadditionalAnswer() {
+        return additionalAnswer;
+    }
+
+    public void setadditionalAnswer(List<String> additionalAnswer) {
+        this.additionalAnswer = additionalAnswer;
     }
 
     @Override

@@ -4,7 +4,7 @@
     <file url="file://$PROJECT_DIR$/src/javacompleto/DataBasee/db.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/javacompleto/DataBasee/db/DB.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/javacompleto/DataBasee/db/Program.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/miniprojJDBC/model/dao/impl/DepartmentDao.java" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/miniprojJDBC/model/dao/impl/SellerDao.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/javacompleto/miniprojJDBC/model/dao/impl/DepartmentDao.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/javacompleto/miniprojJDBC/model/dao/impl/SellerDao.java" dialect="GenericSQL" />
   </component>
 </project>
